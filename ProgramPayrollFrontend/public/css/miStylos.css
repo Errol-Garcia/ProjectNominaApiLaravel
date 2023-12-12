@@ -1,0 +1,148 @@
+
+/* Inicio del login */
+.fondo{
+    width: 100%;
+    height: 80vh;
+
+  background-image: url("../img/fondo.jpg");
+  background-repeat:no-repeat;
+  background-position-x:center;
+  background-position-y:center;
+  background-size: 100rem;
+  
+}
+.conten-login{
+    width: 100%;
+    height: 300px;
+}
+.centrar{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.conten-header{
+    background-color:rgb(64, 151, 223);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 15px 19px 15px -4px rgba(0,0,0,0.1);
+}
+.conten-body{
+    padding: 10px;
+    margin-top: 10px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 15px 19px 15px -4px rgba(0,0,0,0.1);
+}
+.conten-caja{
+    width: 80%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+.icono{
+    width: 40px;
+    height: 40px;
+    background-color: rgb(64, 151, 223);
+    margin-left: 5px;
+}
+.conten-caja a{
+    text-decoration: none;
+    color: rgb(64, 151, 223); 
+}
+.conten-caja .btn{
+    width: 100%;
+}
+.regis a{
+   text-decoration: none;
+   font-size: 14px;
+}
+.regis{
+    width: 80%;
+    margin-bottom: 10px;
+}
+.input-group-text{
+    background-color: rgb(64, 151, 223);;
+    border: 0px;
+}
+.input-group-text i{
+    color: white;
+}
+/* fin del login */
+
+/* inicio del la interfaz */
+#imgPrincipal{
+    width: 20%;
+}
+.nav-img h1{
+    width: 40%;
+}
+.nav-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#fondo{
+    width: 100%;
+    height: 60vh;
+    opacity: 0.5;
+}
+/* fin del la interfaz */
+
+/* inicio add empleado */
+.centrarfrmAddEmpleado{
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content:center;
+}
+.addEmpleadoBody{
+    width: 100%;
+    background-color: violet;
+}
+/* fin add empleado */
+.tdEmpleado tr td input,select{
+    margin: 5px 5px;
+}
+.tdAddEmpleado tr td button{
+    margin: 5px;
+}
+.card-flex{
+    width: 100%;
+    display: flex;
+}
+.btn-buscar{
+    margin-left: 5px;
+}
+.btn-dsdv{
+    margin-top: 5px;
+}
+/* #frmNomina{
+    display: none;
+} */
+
+.perfil{
+    padding: 0px;
+    margin: 0px;
+    font-size: 25px;
+    color: white;
+}
+.conten-perfil{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
