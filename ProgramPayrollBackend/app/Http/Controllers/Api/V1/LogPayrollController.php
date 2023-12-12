@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Log_payrollResource;
-use App\Models\Log_payroll;
-use App\Models\Salary;
-use App\Models\registered_payroll;
 use DateTime;
+use App\Models\Salary;
+use App\Models\LogPayroll;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\RegisteredPayroll;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\LogPayrollResource;
 
-class log_payrollController extends Controller
+class LogPayrollController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $log = Log_payroll::with('employee')->get()->toArray();
-        $registered_payrolls = registered_payroll::get();
+        $log = LogPayroll::with('employee')->get()->toArray();
+        $registered_payrolls = RegisteredPayroll::get();
         $response = [
             'salaries'=>$log, 
             'registered_payrolls'=>$registered_payrolls
@@ -37,7 +37,7 @@ class log_payrollController extends Controller
         
         $request = json_decode($request->input('salaries'));
 
-        $log_payroll = new Log_payroll();
+        $log_payroll = new LogPayroll();
 
         foreach($request as $sueldo){
             $log_payroll->worked_days = $sueldo->input('worked_days');
@@ -63,15 +63,15 @@ class log_payrollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Log_payroll $log_payroll)
+    public function show(LogPayroll $log_payroll)
     {
-        return new Log_payrollResource($log_payroll);
+        return new LogPayrollResource($log_payroll);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Log_payroll $log_payroll)
+    public function update(Request $request, LogPayroll $log_payroll)
     {
         //
     }
@@ -79,7 +79,7 @@ class log_payrollController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Log_payroll $log_payroll)
+    public function destroy(LogPayroll $log_payroll)
     {
         //
     }
@@ -87,7 +87,7 @@ class log_payrollController extends Controller
     public function almacenar($salaries){
         dd($salaries);
     }
-    public function estadistica(){
+    public function statistics(){
         $log = DB::select('SELECT e.names, e.last_names, AVG(l.net_income) as promedio_sueldo
         FROM log_payrolls as l
         JOIN employees as e ON e.id = l.employee_id

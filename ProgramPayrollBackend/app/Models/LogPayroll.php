@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Employee;
+use App\Models\RegisteredPayroll;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Log_payroll extends Model
+class LogPayroll extends Model
 {
     use HasFactory;
 
@@ -24,10 +25,10 @@ class Log_payroll extends Model
         'registered_payroll_id'
     ];
 
-    public function Employee() : BelongsTo{
+    public function employee() : BelongsTo{
         return $this->belongsTo(Employee::class);
     }
-    public function registered_payroll() : BelongsTo{
-        return $this->belongsTo(registered_payroll::class);
+    public function registeredPayroll() : BelongsTo{
+        return $this->belongsTo(RegisteredPayroll::class);
     }
 }

@@ -37,26 +37,32 @@ class Log_payrollController extends Controller
             'registration_date' => Carbon::now()->format('Y-m-d')
         ]);*/
 
-        $payroll = Http::post($url. '/registeredPayroll',[
-            'registration_date' => Carbon::now()->format('Y-m-d')
+        $response = Http::post($url. '/registeredPayroll',[
+            'registration_date' => Carbon::now()->format('Y-m-d'),
+            'salaries' => $request
         ]);
-        //TODO 
-        foreach($request as $sueldo){
-            Log_payroll::create([
-                'worked_days'=> $sueldo->worked_days,
-                'extra_hours'=>$sueldo->extra_hours,
-                'hour_value'=>$sueldo->hour_value,
-                'bono'=>$sueldo->bono,
-                'accrued_value'=>$sueldo->accrued_value,
-                'discount_value'=>$sueldo->discount_value,
-                'net_income'=>$sueldo->net_income,
-                'registration_date'=>(new DateTime())->format('Y-m-d'),
-                'employee_id'=>$sueldo->employee_id,
-                'registered_payroll_id'=>$payroll->id
-            ]);
+        if ($response->successful()){
+            $id = $response->json("id");
+
+            foreach($request as $sueldo){
+                $response = Http::post($url. '/registered_payroll', [
+                    'worked_days'=> $sueldo->worked_days,
+                    'extra_hours'=>$sueldo->extra_hours,
+                    'hour_value'=>$sueldo->hour_value,
+                    'bono'=>$sueldo->bono,
+                    'accrued_value'=>$sueldo->accrued_value,
+                    'discount_value'=>$sueldo->discount_value,
+                    'net_income'=>$sueldo->net_income,
+                    'registration_date'=>(new DateTime())->format('Y-m-d'),
+                    'employee_id'=>$sueldo->employee_id,
+                    'registered_payroll_id'=>$id
+                ]);
+            }
+            $this->eliminar($request);
+            return redirect()->route('logPayroll.index');
         }
-        $this->eliminar($request);
-        return redirect()->route('logPayroll.index');
+        //TODO 
+        
     }
     public function show(registered_payroll $id){
         dd($id);

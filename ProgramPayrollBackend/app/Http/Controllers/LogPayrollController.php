@@ -10,7 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Log_payrollController extends Controller
+class LogPayrollController extends Controller
 {
     public function index(){
         $log = Log_payroll::with('employee')->get()->toArray();

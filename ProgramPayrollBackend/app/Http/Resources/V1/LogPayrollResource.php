@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Log_payrollResource extends JsonResource
+class LogPayrollResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,19 +22,9 @@ class Log_payrollResource extends JsonResource
             'bono'=> $this->bono,
             'net_income'=> $this->net_income,
             'registration_date'=> $this->registration_date,
-            'employee'=>[
-                'id'=> $this->id,
-                'identification_card'=>$this->identification_card,
-                'names' =>$this->names,
-                'last_names'=> $this->last_names,
-                'salary'=> $this->salary,
-                'number_phone'=> $this->number_phone,
-                'address'=> $this->address,
-                'email'=> $this->number_phone,
-            ],
             'registered_payrolls'=>[
                 'id'=>$this->department->id,
-                'registration_date'=>$this->registered_payroll->registration_date
+                // 'registration_date'=>$this->registered_payroll->registration_date
             ]
         ];
     }

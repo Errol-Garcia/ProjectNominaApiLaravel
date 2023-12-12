@@ -7,7 +7,7 @@ use App\Http\Resources\V1\SalaryResource;
 use App\Http\Resources\V1\LogPayrollResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EmployeeResource extends JsonResource
+class EmployeeDetailsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -33,6 +33,8 @@ class EmployeeResource extends JsonResource
                 'id'=>$this->post->id,
                 'name'=>$this->post->name
             ],
+            'payrolls' =>LogPayrollResource::collection($this->logPayrolls),
+            //'salaries' =>SalaryResource::collection($this->salaries)
         ];
     }
 }

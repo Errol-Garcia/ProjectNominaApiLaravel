@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\DepartmentResource;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\DepartmentResource;
+use App\Http\Resources\V1\DepartmentDetailsResource;
 
 class DepartmentController extends Controller
 {
@@ -16,7 +17,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $department = Department::get();
-        return DepartmentResource::collection($department);
+        return DepartmentDetailsResource::collection($department);
     }
 
     /**

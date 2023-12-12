@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Post;
+use App\Models\Salary;
+use App\Models\Department;
+use App\Models\LogPayroll;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
@@ -25,12 +27,12 @@ class Employee extends Model
         'post_id',
     ];
     
-    public function log_payrolls() : HasMany{
-        return $this->hasMany(Log_payroll::class);
+    public function logPayrolls() : HasMany{
+        return $this->hasMany(LogPayroll::class);
     }
 
-    public function salaries() : HasOne{
-        return $this->hasOne(Salary::class);
+    public function salaries() : HasMany{
+        return $this->HasMany(Salary::class);
     }
 
 

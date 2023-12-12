@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Log_payroll;
-use App\Models\registered_payroll;
-use App\Http\Controllers\Controller;
+use App\Models\LogPayroll;
 use Illuminate\Http\Request;
+use App\Models\RegisteredPayroll;
+use App\Http\Controllers\Controller;
 
 class RegisteredPayrollController extends Controller
 {
@@ -22,9 +22,9 @@ class RegisteredPayrollController extends Controller
      */
     public function store(Request $request)
     {
-        $log = Log_payroll::with('employee')->where('registered_payroll_id',$request->registered_payroll_id)->get()->toArray();
+        $log = LogPayroll::with('employee')->where('registered_payroll_id',$request->registered_payroll_id)->get()->toArray();
         
-        $registered_payrolls = registered_payroll::get();
+        $registered_payrolls = RegisteredPayroll::get();
 
         $response =  ['salaries'=>$log, 'registered_payrolls'=>$registered_payrolls];
 

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Salary;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Discount extends Model
 {
@@ -17,7 +17,7 @@ class Discount extends Model
         'registration_date'
     ];
     use HasFactory;
-    public function salarys() : HasMany{
+    public function salaries() : HasMany{
         return $this->hasMany(Salary::class);
     }
 

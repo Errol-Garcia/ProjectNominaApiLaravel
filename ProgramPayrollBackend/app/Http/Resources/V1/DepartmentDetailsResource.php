@@ -4,8 +4,9 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\V1\EmployeeDetailsResource;
 
-class Registered_payrollResource extends JsonResource
+class DepartmentDetailsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +17,8 @@ class Registered_payrollResource extends JsonResource
     {
         return [
             'id'=> $this->id,
-            'registration_date'=>$this->registration_date,
-            'log_payrolls' =>Log_payrollResource::collection($this->log_payrolls)
+            'name'=>$this->name,
+            'employees' => EmployeeDetailsResource::collection($this->employees)
         ];
     }
 }
