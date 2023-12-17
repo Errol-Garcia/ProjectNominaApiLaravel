@@ -39,20 +39,20 @@ class LogPayrollController extends Controller
 
         $log_payroll = new LogPayroll();
 
-        foreach($request as $sueldo){
-            $log_payroll->worked_days = $sueldo->input('worked_days');
-            $log_payroll->extra_hours = $sueldo->input('extra_hours');
-            $log_payroll->hour_value = $sueldo->input('hour_value');
-            $log_payroll->bono = $sueldo->input('bono');
-            $log_payroll->accrued_value = $sueldo->input('accrued_value');
-            $log_payroll->discount_value = $sueldo->input('discount_value');
-            $log_payroll->net_income = $sueldo->input('net_income');
-            $log_payroll->registration_date = (new DateTime())->format('Y-m-d');
-            $log_payroll->employee_id = $sueldo->input('employee_id');
-            $log_payroll->registered_payroll_id = $sueldo->input('registered_payroll_id');
-
-            $log_payroll->save();
-        }
+        //foreach($request as $sueldo){
+        $log_payroll->worked_days = $request->input('worked_days');
+        $log_payroll->extra_hours = $request->input('extra_hours');
+        $log_payroll->hour_value = $request->input('hour_value');
+        $log_payroll->bono = $request->input('bono');
+        $log_payroll->accrued_value = $request->input('accrued_value');
+        $log_payroll->discount_value = $request->input('discount_value');
+        $log_payroll->net_income = $request->input('net_income');
+        $log_payroll->employee_id = $request->input('employee_id');
+        $log_payroll->registered_payroll_id = $request->input('registered_payroll_id');
+        $log_payroll->registration_date = (new DateTime())->format('Y-m-d');
+        
+        $log_payroll->save();
+        //}
         return response()->json([
             'message'=> 'Los datos del historial han sido Guardados',
             'data'=> $log_payroll
@@ -104,7 +104,7 @@ class LogPayrollController extends Controller
         $json=$json."]";
         $json=str_replace(",]","]",$json);
         
-        return view('configuration.logPayroll.statistic',['datas'=> $json]);
+        return $json;
     }
 
     public function eliminar( $salaries){

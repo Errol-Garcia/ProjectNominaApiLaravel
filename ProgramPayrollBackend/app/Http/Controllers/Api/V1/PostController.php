@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::get();
-        return $post;
+        return  PostResource::Collection($post);
     }
 
     /**

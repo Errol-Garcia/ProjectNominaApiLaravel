@@ -12,7 +12,7 @@ class DepartmentController extends Controller
     {
          
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/department');
+        $response = Http::get('http://127.0.0.1:8020/api/v1/department');
         $department = $response->json()["data"];
         
         return view(
@@ -22,7 +22,7 @@ class DepartmentController extends Controller
     }
     public function create()
     {
-        $department = Department::get();
+        //$department = Department::get();
         return view(
             'configuration.department.DepartmentCreate',
             ['department' => null]
@@ -50,7 +50,7 @@ class DepartmentController extends Controller
     public function show()
     {
     }
-    public function edit(Department $department)
+    public function edit(Request $department)
     {
         $url = env('URL_SERVER_API');
         $response = Http::get($url . '/v1/department/'.$department->id);
@@ -61,7 +61,7 @@ class DepartmentController extends Controller
             ['department' => $department]
         );
     }
-    public function update(Request $request, Department $department)
+    public function update(Request $request)
     {
         $url = env('URL_SERVER_API');
         $request->validate([
@@ -78,7 +78,7 @@ class DepartmentController extends Controller
             return redirect()->route('department.index')->withErrors(['message'=> 'Error al registrar al Devengado']);
         }
     }
-    public function destroy(Department $department)
+    public function destroy(Request $department)
     {
         $url = env('URL_SERVER_API');
         $response = Http::delete($url . '/v1/department/'.$department->id);

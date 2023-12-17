@@ -18,15 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::get();
-        $posts = Post::get();
-        $departments = Department::get();
-        
-        $response =[
-            'employees' => $employees,
-            'posts' => $posts,
-            'departments' => $departments,
-        ];
-        return EmployeeResource::collection($response);
+        return EmployeeResource::collection($employees);
     }
 
     /**

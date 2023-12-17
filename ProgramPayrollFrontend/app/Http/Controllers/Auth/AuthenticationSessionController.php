@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthenticationSessionController extends Controller
 {    
+    
 public function create(){
     return view("auth.Login");
 }
@@ -20,12 +21,12 @@ public function store(Request $request){
 
     $request->validate(
         [
-            'user' => 'required|string|max:255|min:8',
+            'user' => 'required|string|max:255|min:4',
             'password' => 'required|string'
         ]
     );
-    
-    $response = Http::post($url . '/login', [
+    //dd($url);
+    $response = Http::post('http://127.0.0.1:8020/api/login', [
         'user' => $request->user,
         'password' => $request->password,
         'name' => 'browser',
@@ -33,7 +34,6 @@ public function store(Request $request){
     //Incorrecto, genera excepción y retorna al formulario de login
     if ($response->successful()) {
         $data = $response->json();
-        // dd($data);
         $request->session()->put('api_token', $data['token']);
         $request->session()->put('user_name', $data['name']);
         $request->session()->put('user_user', $data['user']);
@@ -45,6 +45,7 @@ public function store(Request $request){
         // dd($request->session());
 
         return redirect()->route('home');
+        //return view('WelcomeAdminView');
     } else {
         // back()->withErrors([
         //     'message' => 'Credenciales invalidas'

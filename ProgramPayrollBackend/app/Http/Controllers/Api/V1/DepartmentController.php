@@ -17,7 +17,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $department = Department::get();
-        return DepartmentDetailsResource::collection($department);
+        return DepartmentResource::collection($department);
     }
 
     /**

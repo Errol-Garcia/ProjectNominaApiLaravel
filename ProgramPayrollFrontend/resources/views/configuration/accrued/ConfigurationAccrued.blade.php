@@ -58,11 +58,11 @@
                                 @isset($accrued)
                                     @foreach ($accrued as $deven)
                                         <tr>
-                                            <td style="text-align: center">{{ $deven->feeding }}</td>
-                                            <td style="text-align: center">{{ $deven->living_place }}</td>
-                                            <td style="text-align: center">{{ $deven->transport }}</td>
-                                            <td style="text-align: center">{{ $deven->extra }}</td>
-                                            <td style="text-align: center">{{ $deven->registration_date }}
+                                            <td style="text-align: center">{{ $deven['feeding'] }}</td>
+                                            <td style="text-align: center">{{ $deven['living_place'] }}</td>
+                                            <td style="text-align: center">{{ $deven['transport'] }}</td>
+                                            <td style="text-align: center">{{ $deven['extra'] }}</td>
+                                            <td style="text-align: center">{{ $deven['registration_date'] }}
                                             <td style="text-align: center" class="center">
                                                 <div style="display: flex;">
                                                     <form method="POST" action="{{ route('accrued.destroy', $deven) }}">

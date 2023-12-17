@@ -16,7 +16,7 @@ class AccruedController extends Controller
     public function index()
     {
         $accrued = Accrued::get();
-        return $accrued;
+        return AccruedResource::collection($accrued);
     }
 
     /**

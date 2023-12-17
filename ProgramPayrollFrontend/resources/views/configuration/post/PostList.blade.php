@@ -57,7 +57,7 @@
                                         @foreach ($post as $pos)
                                             <tr>
                                                 <td style="text-align: center">{{ $cont }}</td>
-                                                <td style="text-align: center">{{ $pos->name }}</td>
+                                                <td style="text-align: center">{{ $pos['name'] }}</td>
                                                 <td style="text-align: center" class="center">
                                                     <div style="display: flex">
                                                         <form method="POST" action="{{ route('post.destroy', $pos) }}">

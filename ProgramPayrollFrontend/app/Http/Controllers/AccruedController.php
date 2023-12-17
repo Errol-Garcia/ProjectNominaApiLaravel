@@ -12,13 +12,15 @@ class AccruedController extends Controller
         //$accrued = Accrued::get();
         //dd($Accrued);
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/accrued');
+        //dd($url);
+        $response = Http::get('http://127.0.0.1:8020/api/v1/accrued');
+        //dd($response);
         $accrued = $response->json()["data"];
         return view('configuration.accrued.ConfigurationAccrued',
             ['accrued'=> $accrued]);
     }
     public function create(){
-        $accrued = Accrued::get();
+        //$accrued = Accrued::get();
         return view('configuration.accrued.ConfigurationAccruedCreate',
             ['accrued'=> null]);
     }
@@ -33,7 +35,7 @@ class AccruedController extends Controller
             'registration_date' => 'required|date'
         ]);
 
-        $response = Http::post($url . '/accrued', [
+        $response = Http::post('http://127.0.0.1:8020/api/accrued', [
             'feeding'=> $request->feeding,
             'living_place'=> $request->living_place,
             'transport'=> $request->transport,
@@ -56,10 +58,10 @@ class AccruedController extends Controller
     }
     public function show(){
     }
-    public function edit(Accrued $accrued){
+    public function edit(Request $accrued){
         //dd($accrued);
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/accrued/'.$accrued->id);
+        $response = Http::get('http://127.0.0.1:8020/api/v1/accrued/'.$accrued->id);
         $accrued = $response->json()["data"];
         
         //$accrued = Accrued::find($accrued->id);
@@ -68,7 +70,7 @@ class AccruedController extends Controller
         return view('configuration.accrued.ConfigurationAccruedUpdating',
             ['accrued'=> $accrued]);
     }
-    public function update(Request $request, Accrued $accrued){
+    public function update(Request $request){
         
         $url = env('URL_SERVER_API');
         $request->validate([
@@ -100,9 +102,9 @@ class AccruedController extends Controller
         }
     }
 
-    public function destroy(Accrued $accrued){
+    public function destroy(request $accrued){
         $url = env('URL_SERVER_API');
-        $response = Http::delete($url . '/v1/accrued/'.$accrued->id);
+        $response = Http::delete('http://127.0.0.1:8020/api/v1/accrued/'.$accrued->id);
         
         if($response->successful()){
             return redirect()->route('accrued.index')->with(['message'=> 'Devengado actualizado correctamente']);

@@ -7,21 +7,45 @@ use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function login(Request $request){
+        if(Auth::attempt($request->only('user','password'))){
+            $user = $request->user();
+
+            return response()->json([
+                //Generar token (clave) para el servicio autenticado
+                //si hay clave puede consumir los servicios
+                'token' => $user->createToken($request->name)->plainTextToken,
+                'name' => $user->name,
+                'user'=>$user->user,
+                'message' => 'Success'
+            ], Response::HTTP_ACCEPTED);
+        }else{
+            return response()->json([
+                
+                'message' => 'Unauthorized'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function logout(Request $request){
+        $user = $request->user();
+        if($user){
+            $user->currentAccessToken()->delete();
+            return response()->json([
+                'message' => 'Successfully logged out'
+            ], Response::HTTP_ACCEPTED);
+        }else{
+            return response()->json([
+                
+                'message' => 'User not authorized'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+    }
+    public function register(Request $request)
     {
         $user = new User();
         
@@ -39,35 +63,4 @@ class SessionController extends Controller
         ], Response::HTTP_ACCEPTED);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        return new UserResource($user);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        $user->update($request->all());
-
-        return response()->json([
-            'message'=> 'se ha Actualizado un usuario con éxito',
-            'data'=> $user
-        ], Response::HTTP_ACCEPTED);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return response()->json([
-            'message'=> 'se ha eliminado un usuario con éxito'
-        ], Response::HTTP_ACCEPTED);
-    }
 }

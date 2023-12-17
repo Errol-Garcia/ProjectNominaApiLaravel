@@ -57,19 +57,22 @@
                                         @foreach ($department as $depart)
                                             <tr>
                                                 <td style="text-align: center">{{ $cont }}</td>
-                                                <td style="text-align: center">{{ $depart->name }}</td>
+                                                <td style="text-align: center">{{ $depart['name'] }}</td>
                                                 <td style="text-align: center" class="center">
                                                     <div style="display: flex">
-                                                        <form method="POST" action="{{ route('department.destroy', $depart) }}">
+                                                        <form method="POST"
+                                                            action="{{ route('department.destroy', $depart) }}">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="text-danger" style="background-color: transparent; border: none; outline: none"
+                                                            <button type="submit" class="text-danger"
+                                                                style="background-color: transparent; border: none; outline: none"
                                                                 onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?')">
                                                                 <i class="bi bi-trash"></i>
                                                             </button>
                                                         </form>
-                                                        <a class='text-success' href="{{ route('department.edit', $depart) }}"><i
-                                                            class='bi bi-pencil-square'></i>
+                                                        <a class='text-success'
+                                                            href="{{ route('department.edit', $depart) }}"><i
+                                                                class='bi bi-pencil-square'></i>
                                                     </div>
 
 

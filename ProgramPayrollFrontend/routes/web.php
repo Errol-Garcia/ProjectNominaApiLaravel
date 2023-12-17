@@ -27,7 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('WelcomeAdminView');
-}) -> name('home')->middleware('auth');
+}) -> name('home');
+
+//Route::get('/', [IndexController::class, 'index'])->name('home');
 //--------------------------------------
 //Route::get('', function () {
 
@@ -35,16 +37,16 @@ Route::get('/', function () {
 //Route::get('/',[IndexController::class, 'index'])->name('index');
 //----------------Resources---------------
 
-Route::resource('registered_payroll', RegisteredPayrollController::class)->middleware('auth');
-Route::resource('accrued',AccruedController::class)->middleware('auth');
-Route::resource('discount',DiscountController::class)->middleware('auth');
-Route::resource('department',DepartmentController::class)->middleware('auth');
-Route::resource('employee',EmployeeController::class)->middleware('auth');
-Route::resource('payroll',SalaryController::class)->middleware('auth');
-Route::resource('logPayroll',Log_payrollController::class)->middleware('auth');
-Route::resource('post',PostController::class)->middleware('auth');
-Route::resource('user', UserController::class)->middleware('auth');
-Route::resource('registeredPayroll', RegisteredPayrollController::class)->middleware('auth');
+Route::resource('registered_payroll',RegisteredPayrollController::class);
+Route::resource('accrued',AccruedController::class);
+Route::resource('discount',DiscountController::class);
+Route::resource('department',DepartmentController::class);
+Route::resource('employee',EmployeeController::class);
+Route::resource('payroll',SalaryController::class);
+Route::resource('logPayroll',Log_payrollController::class);
+Route::resource('post',PostController::class);
+Route::resource('user', UserController::class);
+Route::resource('registeredPayroll', RegisteredPayrollController::class);
 
 
 Route::get('/PayrollPartial', function () {

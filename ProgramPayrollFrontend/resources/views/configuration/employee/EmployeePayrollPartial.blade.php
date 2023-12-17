@@ -51,10 +51,10 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{{ $employee->names }}</td>
-                                                <td>{{ $employee->last_names }}</td>
-                                                <td>{{ $employee->number_phone }}</td>
-                                                <td>{{ $employee->salary }}</td>
+                                                <td>{{ $employee['names'] }}</td>
+                                                <td>{{ $employee['last_names'] }}</td>
+                                                <td>{{ $employee['number_phone'] }}</td>
+                                                <td>{{ $employee['salary'] }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -105,8 +105,8 @@
                                                         <option value="" selected>Seleccionar</option>
                                                         @isset($accrueds)
                                                             @foreach ($accrueds as $accrued)
-                                                                <option value="{{ $accrued->id }}">
-                                                                    {{ $accrued->registration_date }}
+                                                                <option value="{{ $accrued['id'] }}">
+                                                                    {{ $accrued['registration_date'] }}
                                                                 </option>
                                                             @endforeach
                                                         @endisset
@@ -123,8 +123,8 @@
                                                         <option value="" selected>Seleccionar</option>
                                                         @isset($discounts)
                                                             @foreach ($discounts as $discount)
-                                                                <option value="{{ $discount->id }}">
-                                                                    {{ $discount->registration_date }}
+                                                                <option value="{{ $discount['id'] }}">
+                                                                    {{ $discount['registration_date'] }}
                                                                 </option>
                                                             @endforeach
                                                         @endisset
@@ -139,8 +139,8 @@
                                 </div>
                             </div>
                             <div class="center">
-                                <input type="hidden" name="employee_id" value="{{ $employee->id }}">
-                                <input type="hidden" name="salary" value="{{ $employee->salary }}">
+                                <input type="hidden" name="employee_id" value="{{ $employee['id'] }}">
+                                <input type="hidden" name="salary" value="{{ $employee['salary'] }}">
                                 <button type="submit" class="btn btn-primary btn-dsdv">Registrar</button>
                             </div>
                         </form>

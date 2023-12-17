@@ -40,7 +40,9 @@ class SalaryController extends Controller
         
         if($employee != null){
             //TODO
-            $salary = DB::select('SELECT * FROM salaries where employee_id=?',[$employee->id]);
+            $response = Http::get($url. '/v1/salary/'.$employee->id);
+            $salary = $response->json()["data"];
+            //$salary = DB::select('SELECT * FROM salaries where employee_id=?',[$employee->id]);
         }
 
         //dd($Accrued);
@@ -50,35 +52,14 @@ class SalaryController extends Controller
     'accrueds'=> $accrueds, 'discounts'=>$discounts/*, 'identification_card'=>"df"*/]);
     }
     public function store(Request $request){
-  /*      $discount = Discount::find($request->discount_id);
-        $accrued = Accrued::find($request->accrued_id);
 
-        $transportation_assistance=0;
-        if($request->salary <= 1160000){
-            $transportation_assistance = $accrued->transporte;
-        }
-        $TotalBasic = ($request->salary*$request->worked_days)/30;
-
-        $extras = ($request->hour_value*$request->extra_hours) + $request->bono;
-
-        $TotalesAccrueds = $TotalBasic+$extras+$accrued->feeding+$accrued->living_place+$accrued->extra+$transportation_assistance;
-
-        $health = ($TotalesAccrueds-$transportation_assistance)*($discount->health/100);
-        $pension = ($TotalesAccrueds-$transportation_assistance)*($discount->pension/100);
-        $arl = ($TotalesAccrueds-$transportation_assistance)*($discount->parafiscal/100);
-
-        $TotalDiscounts = $health + $pension + $arl;
-        $NetoPagar = $TotalesAccrueds - $TotalDiscounts;
-*/
+        $url = env('URL_SERVER_API');
 //TODO
-        Salary::create([
+        $response = Http::post($url. '/v1/salary',[
             'worked_days'=> $request->worked_days,
             'extra_hours'=>$request->extra_hours,
             'hour_value'=>$request->hour_value,
             'bono'=>$request->bono,
-            'accrued_value'=>$TotalesAccrueds,
-            'discount_value'=>$TotalDiscounts,
-            'net_income'=>$NetoPagar,
             'employee_id'=>$request->employee_id,
             'discount_id'=>$request->discount_id,
             'accrued_id'=>$request->accrued_id,
@@ -130,41 +111,42 @@ class SalaryController extends Controller
     }
     
     public function update(Request $request, Salary $salary){
-        $salary = Salary::find($request->id);
-        $discount = Discount::find($request->discount_id);
-        $accrued = Accrued::find($request->Accrued_id);
-        $employee = Employee::find($salary->employee_id);
+        
+        $url = env('URL_SERVER_API');
+/*
+        $response = Http::get($url . '/v1/payroll/'.$request->id);
+        $salary = $response->json()["data"];
+
+        $response = Http::get($url . '/v1/discount/'.$request->discount_id);
+        $discount = $response->json()["data"];
+
+        $response = Http::get($url . '/v1/accrued/'.$request->Accrued_id);
+        $accrued_salary = $response->json()["data"];
+
+        $response = Http::get($url. '/v1/employee/'.$salary->employee_id);
+        $employee = $response->json()["data"];
+*/
+        //$salary = Salary::find($request->id);
+        // $discount = Discount::find($request->discount_id);
+        // $accrued = Accrued::find($request->Accrued_id);
+        //$employee = Employee::find($salary->employee_id);
         //dd($salary, $request, $employee);
 
-        $transportation_assistance=0;
-        if($request->salary <= 1160000){
-            $transportation_assistance = $accrued->transporte;
-        }
-        $TotalBasic = ($employee->salary*$request->worked_days)/30;
-
-        $extras = ($request->hour_value*$request->extra_hours) + $request->bono;
-
-        $TotalesAccrueds = $TotalBasic+$extras+$accrued->feeding+$accrued->living_place+$accrued->extra+$transportation_assistance;
-        //$TotalesAccrueds = $TotalBasic+$transportation_assistance;
-        $health = ($TotalesAccrueds-$transportation_assistance)*($discount->health/100);
-        $pension = ($TotalesAccrueds-$transportation_assistance)*($discount->pension/100);
-        $arl = ($TotalesAccrueds-$transportation_assistance)*($discount->parafiscal/100);
-
-        $TotalDiscounts = $health + $pension + $arl;
-        $NetoPagar = $TotalesAccrueds - $TotalDiscounts;
-
-        $salary->update([
+        $response = Http::put($url. '/v1/salary',[
             'worked_days'=> $request->worked_days,
             'extra_hours'=>$request->extra_hours,
             'hour_value'=>$request->hour_value,
             'bono'=>$request->bono,
-            'accrued_value'=>$TotalesAccrueds,
-            'discount_value'=>$TotalDiscounts,
-            'net_income'=>$NetoPagar,
             'discount_id'=>$request->discount_id,
             'Accrued_id'=>$request->Accrued_id,
         ]);
-        return redirect()->route('payroll.index');
+        
+
+        if($response->successful()){
+            return redirect()->route('payroll.index')->with(['message'=> 'Salario actualizado correctamente']);
+        }else{
+            return redirect()->route('payroll.index')->withErrors(['message'=> 'Error al registrar al Salario']);
+        }
     }
     public function destroy($id){
 

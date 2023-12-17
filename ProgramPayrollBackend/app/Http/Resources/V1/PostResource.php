@@ -17,7 +17,7 @@ class PostResource extends JsonResource
         return [
             'id'=> $this->id,
             'name'=>$this->name,
-            'employees' =>EmployeeResource::collection($this->employees)
+            //'employees' =>EmployeeResource::collection($this->employees)
         ];
     }
 }

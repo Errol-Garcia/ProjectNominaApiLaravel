@@ -64,8 +64,8 @@ class Log_payrollController extends Controller
         //TODO 
         
     }
-    public function show(registered_payroll $id){
-        dd($id);
+    public function show(){
+        
     }
     public function edit($id){
     }
@@ -99,8 +99,8 @@ class Log_payrollController extends Controller
 
     public function eliminar( $salaries){
         foreach($salaries as $salary){
-            Salary::where(
+            /*Salary::where(
                 'employee_id',$salary->employee_id)->delete();
-            };
+            */};
     }
 }

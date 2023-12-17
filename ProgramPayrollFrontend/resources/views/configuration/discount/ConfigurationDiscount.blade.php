@@ -68,11 +68,11 @@
                                 @isset($discount)
                                     @foreach ($discount as $descu)
                                         <tr>
-                                            <td style="text-align: center">{{ $descu->arl }}</td>
-                                            <td style="text-align: center">{{ $descu->health }}</td>
-                                            <td style="text-align: center">{{ $descu->pension }}</td>
-                                            <td style="text-align: center">{{ $descu->parafiscal }}</td>
-                                            <td style="text-align: center">{{ $descu->registration_date }}
+                                            <td style="text-align: center">{{ $descu['arl'] }}</td>
+                                            <td style="text-align: center">{{ $descu['health'] }}</td>
+                                            <td style="text-align: center">{{ $descu['pension'] }}</td>
+                                            <td style="text-align: center">{{ $descu['parafiscal'] }}</td>
+                                            <td style="text-align: center">{{ $descu['registration_date'] }}
                                             <td style="text-align: center" class="center">
                                                 <div style="display: flex;">
                                                     <form method="POST" action="{{ route('discount.destroy', $descu) }}">

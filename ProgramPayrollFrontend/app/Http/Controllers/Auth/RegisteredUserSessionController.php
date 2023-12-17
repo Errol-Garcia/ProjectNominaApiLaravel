@@ -17,11 +17,12 @@ class RegisteredUserSessionController extends Controller
 {
     public function create(){
 
-        $roles = Role::get();
+        $url = env('URL_SERVER_API');
+        $response = Http::get($url.'/role');
+        $roles = $response->json()["data"];
         return view("auth.Register", ['roles'=>$roles]);
     }
     public function store(Request $request){
-        //dd($request);
         $url = env('URL_SERVER_API');
 
         $request->validate([
@@ -37,14 +38,6 @@ class RegisteredUserSessionController extends Controller
             'identification_card'=> $request->identification_card,
             'role_id'=> $request->role_id
         ]);
-        //dd($request);
-        /*User::create([
-            'name' => $request->name,
-            'user' => $request->user,
-            'password'=> bcrypt($request->password),
-            'identification_card'=> $request->identification_card,
-            'role_id' => $request->role_id,
-        ]);*/
         
         if ($response->successful()) {
             return redirect()->route('login')->with(['message' => 'Usuario registrado correctamente']);
