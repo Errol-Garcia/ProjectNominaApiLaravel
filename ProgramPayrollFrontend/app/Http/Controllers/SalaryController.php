@@ -18,6 +18,7 @@ class SalaryController extends Controller
         //dd($salarie);
         $url = env('URL_SERVER_API');
         $response = Http::get($url . '/v1/payroll');
+        //dd($response);
         $salary = $response->json()["data"];
 
         return view('configuration.employee.EmployeePayroll', ['salaries'=>$salary]);
@@ -35,13 +36,18 @@ class SalaryController extends Controller
 
         $response = Http::get($url. '/v1/employee/'.$request->identification_card);
         $employee = $response->json()["data"];
-
+        //dd($response);
         //$employee = Employee::where('identification_card',$request->identification_card)->first();
-        
+        //dd($employee);
         if($employee != null){
-            //TODO
-            $response = Http::get($url. '/v1/salary/'.$employee->id);
-            $salary = $response->json()["data"];
+            //dd($employee['id']);
+            $response = Http::get($url. '/v1/payroll/'.$employee['id']);
+            //dd($response);
+            if ($response->json() == null){
+                $salary = null;
+            }else{
+                $salary = $response->json()["data"];
+            }
             //$salary = DB::select('SELECT * FROM salaries where employee_id=?',[$employee->id]);
         }
 
@@ -54,8 +60,7 @@ class SalaryController extends Controller
     public function store(Request $request){
 
         $url = env('URL_SERVER_API');
-//TODO
-        $response = Http::post($url. '/v1/salary',[
+        $response = Http::post($url. '/v1/payroll',[
             'worked_days'=> $request->worked_days,
             'extra_hours'=>$request->extra_hours,
             'hour_value'=>$request->hour_value,
@@ -64,11 +69,11 @@ class SalaryController extends Controller
             'discount_id'=>$request->discount_id,
             'accrued_id'=>$request->accrued_id,
         ]);
+
         return view('configuration.employee.EmployeePayrollPartial',
         ['employee' => null, 'salary'=>null,
         'accrued'=> null, 'discount'=>null, 'mensaje'=>"registrado"]);
 
-        //dd($request);
     }
     public function show(Request $request, $identification_card){
 
@@ -90,13 +95,13 @@ class SalaryController extends Controller
         $response = Http::get($url . '/v1/accrued');
         $accrued = $response->json()["data"];
 
-        $response = Http::get($url . '/v1/payroll');
+        $response = Http::get($url . '/v1/payroll/'.$salary);
         $salary = $response->json()["data"];
 
-        $response = Http::get($url . '/v1/discount/'.$salary->discount_id);
+        $response = Http::get($url . '/v1/discount/'.$salary['discount']['id']);
         $discount_salary = $response->json()["data"];
 
-        $response = Http::get($url . '/v1/accrued/'.$salary->accrued_id);
+        $response = Http::get($url . '/v1/accrued/'.$salary['accrued']['id']);
         $accrued_salary = $response->json()["data"];
 
         //$salary = Salary::find($salary);
@@ -110,7 +115,7 @@ class SalaryController extends Controller
             ]);
     }
     
-    public function update(Request $request, Salary $salary){
+    public function update(Request $request, int $salary){
         
         $url = env('URL_SERVER_API');
 /*
@@ -132,7 +137,7 @@ class SalaryController extends Controller
         //$employee = Employee::find($salary->employee_id);
         //dd($salary, $request, $employee);
 
-        $response = Http::put($url. '/v1/salary',[
+        $response = Http::put($url. '/v1/salary/'. $salary,[
             'worked_days'=> $request->worked_days,
             'extra_hours'=>$request->extra_hours,
             'hour_value'=>$request->hour_value,

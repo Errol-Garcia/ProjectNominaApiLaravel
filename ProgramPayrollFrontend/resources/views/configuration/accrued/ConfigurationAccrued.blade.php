@@ -65,7 +65,7 @@
                                             <td style="text-align: center">{{ $deven['registration_date'] }}
                                             <td style="text-align: center" class="center">
                                                 <div style="display: flex;">
-                                                    <form method="POST" action="{{ route('accrued.destroy', $deven) }}">
+                                                    <form method="POST" action="{{ route('accrued.destroy', $deven['id']) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-danger"
@@ -75,7 +75,7 @@
                                                         </button>
                                                     </form>
 
-                                                    <a class='text-success' href="{{ route('accrued.edit', $deven) }}"><i
+                                                    <a class='text-success' href="{{ route('accrued.edit', $deven['id']) }}"><i
                                                             class='bi bi-pencil-square'></i>
                                                 </div>
 

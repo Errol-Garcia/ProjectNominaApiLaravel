@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\SalaryResource;
 use App\Models\Accrued;
 use App\Models\Discount;
 use App\Models\Employee;
@@ -17,8 +18,9 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        $salary = Salary::with('employee')->get()->toArray();
-        return $salary;
+        $salary = Salary::with('employee')->get();//->toArray();
+        return SalaryResource::collection($salary);
+        //return $salary;
     }
 
     /**
@@ -76,9 +78,15 @@ class SalaryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Salary $salary)
+    public function show(int $id_employee)
     {
-        //
+        
+        $Salary = Salary::where('employee_id',$id_employee)->first();
+        if($Salary == null){
+            return null;
+        }else{
+            return new SalaryResource($Salary);
+        }
     }
 
     /**

@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row center py-5">
             <div class="col-3 ">
-                <form action="{{ route('payroll.update', $salary) }}" method="POST">
+                <form action="{{ route('payroll.update', $salary['id']) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="mb-3">

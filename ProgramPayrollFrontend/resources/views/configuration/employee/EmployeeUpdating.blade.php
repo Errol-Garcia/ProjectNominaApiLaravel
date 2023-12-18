@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-body ">
 
-                        <form action="{{ route('employee.update', $employee) }}" method="POST">
+                        <form action="{{ route('employee.update', $employee['id']) }}" method="POST">
 
                             @method('PUT')
                             @include('configuration.employee.EmployeeForm')

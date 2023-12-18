@@ -36,7 +36,7 @@ class DepartmentController extends Controller
             'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,100',
         ]);
 
-        $response = Http::post([
+        $response = Http::post('http://127.0.0.1:8020/api/v1/department', [
             'name' => $request->name
         ]);
 
@@ -50,10 +50,10 @@ class DepartmentController extends Controller
     public function show()
     {
     }
-    public function edit(Request $department)
+    public function edit(int $department)
     {
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/department/'.$department->id);
+        $response = Http::get('http://127.0.0.1:8020/api/v1/department/'.$department);
         $department = $response->json()["data"];
         
         return view(
@@ -61,14 +61,14 @@ class DepartmentController extends Controller
             ['department' => $department]
         );
     }
-    public function update(Request $request)
+    public function update(Request $request, int $id)
     {
         $url = env('URL_SERVER_API');
         $request->validate([
             'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,100',
         ]);
 
-        $response = Http::put([
+        $response = Http::put('http://127.0.0.1:8020/api/v1/department/'.$id,[
             'name' => $request->name
         ]);
         
@@ -78,15 +78,15 @@ class DepartmentController extends Controller
             return redirect()->route('department.index')->withErrors(['message'=> 'Error al registrar al Devengado']);
         }
     }
-    public function destroy(Request $department)
+    public function destroy(int $department)
     {
         $url = env('URL_SERVER_API');
-        $response = Http::delete($url . '/v1/department/'.$department->id);
+        $response = Http::delete('http://127.0.0.1:8020/api/v1/department/'.$department);
         
         if($response->successful()){
-            return redirect()->route('$department.index')->with(['message'=> 'Departamento actualizado correctamente']);
+            return redirect()->route('department.index')->with(['message'=> 'Departamento actualizado correctamente']);
         }else{
-            return redirect()->route('$department.index')->withErrors(['message'=> 'Error al actualizar el Departamento']);
+            return redirect()->route('department.index')->withErrors(['message'=> 'Error al actualizar el Departamento']);
         }
     }
 }

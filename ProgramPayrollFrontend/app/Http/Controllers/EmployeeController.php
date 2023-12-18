@@ -37,7 +37,7 @@ class EmployeeController extends Controller
 
         return view('configuration.employee.EmployeeCreate',['employee'=> null, 'post'=>$post, 'department'=>$department]);
     }
-    public function store(Request $request, Employee $emplee, Post $post, department $department){
+    public function store(Request $request){
         
         $url = env('URL_SERVER_API');
 
@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             'post_id' => 'required|integer'
         ]);
         //dd($request);
-        $response = Http::post([
+        $response = Http::post($url . '/v1/employee', [
             'identification_card'=> $request->identification_card,
             'names'=> $request->names,
             'last_names'=> $request->last_names,
@@ -73,11 +73,11 @@ class EmployeeController extends Controller
     }
     public function show(){
     }
-    public function edit(Employee $employee){
+    public function edit(int $employee){
 
         $url = env('URL_SERVER_API');
 
-        $response = Http::get($url . '/v1/employee/'.$employee->id);
+        $response = Http::get($url . '/v1/employee/'.$employee);
         $employee = $response->json()["data"];
 
         $response = Http::get($url . '/v1/post');
@@ -89,7 +89,7 @@ class EmployeeController extends Controller
         return view('configuration.employee.EmployeeUpdating',
         ['employee'=> $employee, 'post'=>$post, 'department'=>$department]);
     }
-    public function update(Request $request, Employee $employee){
+    public function update(Request $request, int $employee){
 
         $url = env('URL_SERVER_API');
 
@@ -105,7 +105,7 @@ class EmployeeController extends Controller
             'post_id' => 'required|integer'
         ]);
 
-        $response = Http::put([
+        $response = Http::put($url . '/v1/employee/'.$employee, [
             'identification_card'=> $request->identification_card,
             'names'=> $request->names,
             'last_names'=> $request->last_names,
@@ -119,10 +119,10 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.index');
     }
-    public function destroy(Employee $employee){
+    public function destroy(int $employee){
         $url = env('URL_SERVER_API');
         
-        $response = Http::delete($url . '/v1/employee/'.$employee->id);
+        $response = Http::delete($url . '/v1/employee/'.$employee);
 
         return redirect()->route('employee.index');
         

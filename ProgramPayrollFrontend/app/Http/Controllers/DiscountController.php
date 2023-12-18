@@ -11,14 +11,14 @@ class DiscountController extends Controller
     public function index(){
         //dd($descuento);
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/$discount');
+        $response = Http::get('http://127.0.0.1:8020/api/v1/discount');
+        
         $discount = $response->json()["data"];
 
         return view('configuration.discount.ConfigurationDiscount',
             ['discount'=> $discount]);
     }
     public function create(){
-        $discount = Discount::get();
         return view('configuration.discount.ConfigurationDiscountCreate',
             ['discount'=> null]);
     }
@@ -35,7 +35,7 @@ class DiscountController extends Controller
             'registration_date' => 'required|date'
         ]);
 
-        $response = Http::post([
+        $response = Http::post('http://127.0.0.1:8020/api/v1/discount',[
             'arl' => $request->arl,
             'health' => $request->health,
             'pension' => $request->pension,
@@ -51,14 +51,14 @@ class DiscountController extends Controller
     }
     public function show(){
     }
-    public function edit(Discount $discount){
+    public function edit(int $discount){
         
         $url = env('URL_SERVER_API');
-        $response = Http::get($url . '/v1/discount/'.$discount->id);
+        $response = Http::get($url . '/v1/discount/'.$discount);
         $discount = $response->json()["data"];
         return view('configuration.discount.ConfigurationDiscountUpdating',['discount'=> $discount]);
     }
-    public function update(Request $request, Discount $discount){
+    public function update(Request $request, int $id){
 
         $request->validate([
             'arl' => 'required|decimal:0,5',
@@ -68,7 +68,7 @@ class DiscountController extends Controller
             'registration_date' => 'required|date'
         ]);
 
-        $response = Http::put([
+        $response = Http::put('http://127.0.0.1:8020/api/v1/discount/'.$id, [
             'arl' => $request->arl,
             'health' => $request->health,
             'pension' => $request->pension,
@@ -83,10 +83,10 @@ class DiscountController extends Controller
         }
     }
     
-    public function destroy(Discount $discount){
+    public function destroy(int $discount){
 
         $url = env('URL_SERVER_API');
-        $response = Http::delete($url . '/v1/discount/'.$discount->id);
+        $response = Http::delete($url . '/v1/discount/'.$discount);
         
         if($response->successful()){
             return redirect()->route('discount.index')->with(['message'=> 'Devengado actualizado correctamente']);

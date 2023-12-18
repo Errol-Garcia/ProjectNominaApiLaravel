@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row center py-2">
             <div class="col-3">
-                <form action="{{ route('accrued.update', $accrued) }}" method="POST">
+                <form action="{{ route('accrued.update', $accrued['id']) }}" method="POST">
                     @method('PUT')
                     @include('configuration.accrued.ConfigurationAccruedForm')
                     <br>

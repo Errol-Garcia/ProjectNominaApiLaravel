@@ -65,15 +65,15 @@
                                         <tr>
                                             <td style="text-align: center">{{ $cont }}</td>
                                             <td style="text-align: center">{{ $emple['identification_card'] }}</td>
-                                            <td style="text-align: center">{{ $emple['name'] }}</td>
+                                            <td style="text-align: center">{{ $emple['names'] }}</td>
                                             <td style="text-align: center">{{ $emple['last_names'] }}</td>
                                             <td style="text-align: center">{{ $emple['number_phone'] }}</td>
-                                            <td style="text-align: center">{{ $emple['post_id'] }}</td>
-                                            <td style="text-align: center">{{ $emple['department_id'] }}</td>
+                                            <td style="text-align: center">{{ $emple['post']['name'] }}</td>
+                                            <td style="text-align: center">{{ $emple['department']['name'] }}</td>
                                             <td style="text-align: center">{{ $emple['address'] }}</td>
                                             <td style="text-align: center">{{ $emple['email'] }}</td>
                                             <td style="text-align: center">
-                                                <a class='text-success' href="{{ route('employee.edit', $emple) }}">
+                                                <a class='text-success' href="{{ route('employee.edit', $emple['id']) }}">
                                                     <i class='bi bi-pencil-square'></i>
                                                 </a>
                                             </td>

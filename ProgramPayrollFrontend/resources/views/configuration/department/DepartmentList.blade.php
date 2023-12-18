@@ -61,7 +61,7 @@
                                                 <td style="text-align: center" class="center">
                                                     <div style="display: flex">
                                                         <form method="POST"
-                                                            action="{{ route('department.destroy', $depart) }}">
+                                                            action="{{ route('department.destroy', $depart['id']) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="text-danger"
@@ -71,7 +71,7 @@
                                                             </button>
                                                         </form>
                                                         <a class='text-success'
-                                                            href="{{ route('department.edit', $depart) }}"><i
+                                                            href="{{ route('department.edit', $depart['id']) }}"><i
                                                                 class='bi bi-pencil-square'></i>
                                                     </div>
 
