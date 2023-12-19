@@ -15,37 +15,35 @@ class Log_payrollController extends Controller
 {
     public function index(){
         $url = env('URL_SERVER_API');
-        $response = Http::get($url. '/v1/logPayroll');
+        $response = Http::get($url. '/v1/log_payroll');
         $log = $response->json()["data"];
         
-        $response = Http::get($url. '/v1/registeredPayroll');
-        $registered_payrolls = $response->json()["data"];
+        $response2 = Http::get($url. '/v1/registered_payroll');
+        $registered_payrolls = $response2->json()["data"];
 
-        //$log = Log_payroll::with('employee')->get()->toArray();
-        //$registered_payrolls = registered_payroll::get();
         return view('configuration.logPayroll.logPayrollList', ['salaries'=>$log, 'registered_payrolls'=>$registered_payrolls]);
     }
     public function create(){
     }
     public function store(Request $request){
-        //$request2 = $request;
+        
         $url = env('URL_SERVER_API');
         $request = json_decode($request->input('salaries'));
-        //dd($request);
         
-        /*$payroll = registered_payroll::create([
-            'registration_date' => Carbon::now()->format('Y-m-d')
-        ]);*/
 
-        $response = Http::post($url. '/registeredPayroll',[
+        $response = Http::post($url. '/v1/registered_payroll',[
             'registration_date' => Carbon::now()->format('Y-m-d'),
-            'salaries' => $request
+            
         ]);
+
+        $log = $response->json()["data"];
+        
         if ($response->successful()){
-            $id = $response->json("id");
+            
 
             foreach($request as $sueldo){
-                $response = Http::post($url. '/registered_payroll', [
+                
+                $response = Http::post($url. '/log_payroll', [
                     'worked_days'=> $sueldo->worked_days,
                     'extra_hours'=>$sueldo->extra_hours,
                     'hour_value'=>$sueldo->hour_value,
@@ -53,26 +51,46 @@ class Log_payrollController extends Controller
                     'accrued_value'=>$sueldo->accrued_value,
                     'discount_value'=>$sueldo->discount_value,
                     'net_income'=>$sueldo->net_income,
-                    'registration_date'=>(new DateTime())->format('Y-m-d'),
-                    'employee_id'=>$sueldo->employee_id,
-                    'registered_payroll_id'=>$id
+                    'employee_id'=>$sueldo->employee->id,
+                    'registered_payroll_id'=>$log['id']
                 ]);
             }
             $this->eliminar($request);
             return redirect()->route('logPayroll.index');
         }
-        //TODO 
         
     }
-    public function show(){
+    public function show(int $salary){
         
     }
-    public function edit($id){
+    public function edit(int $salary){
+        $url = env('URL_SERVER_API');
+        $response = Http::get($url . '/v1/discount');
+        $discounts = $response->json()["data"];
+
+        $response = Http::get($url . '/v1/accrued');
+        $accrued = $response->json()["data"];
+
+        $response = Http::get($url . '/v1/log_payroll/'.$salary);
+        $salary = $response->json()["data"];
+        
+        $response = Http::get($url . '/v1/discount/'.$salary['discount']['id']);
+        $discount_salary = $response->json()["data"];
+
+        $response = Http::get($url . '/v1/accrued/'.$salary['accrued']['id']);
+        $accrued_salary = $response->json()["data"];
+
+        return view('configuration.employee.EmployeePayrollUpdating', 
+            ['salary'=>$salary,'accrueds'=> $accrued, 'discounts'=>$discounts,
+            'accrued_salary'=> $accrued_salary, 'discount_salary'=>$discount_salary,
+            ]);
     }
     public function update(Request $request){
     }
-    public function destroy(Request $request){
-        return redirect()->route('logPayroll.index');
+    public function destroy(int $id){
+        $url = env('URL_SERVER_API');
+        $response = Http::delete('http://127.0.0.1:8020/api/v1/payroll/'.$id);
+        dd($response);
     }
     public function almacenar($salaries){
         dd($salaries);
@@ -98,9 +116,12 @@ class Log_payrollController extends Controller
     }
 
     public function eliminar( $salaries){
+        
+        //$url = env('URL_SERVER_API');
+       // dd($salaries);
         foreach($salaries as $salary){
-            /*Salary::where(
-                'employee_id',$salary->employee_id)->delete();
-            */};
+            $this->destroy($salary->id);
+           // $response = Http::delete($url . '/v1/payroll/'.$salary->id);
+            };
     }
 }

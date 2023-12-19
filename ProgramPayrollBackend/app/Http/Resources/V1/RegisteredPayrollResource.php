@@ -18,7 +18,6 @@ class RegisteredPayrollResource extends JsonResource
         return [
             'id'=> $this->id,
             'registration_date'=>$this->registration_date,
-            'payrolls' =>LogPayrollDetailsResource::collection($this->log_payrolls)
-        ];
+            ];
     }
 }

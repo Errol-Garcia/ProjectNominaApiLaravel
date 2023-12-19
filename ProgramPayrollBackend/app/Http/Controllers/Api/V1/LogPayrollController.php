@@ -11,6 +11,7 @@ use App\Models\RegisteredPayroll;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\LogPayrollResource;
+use App\Http\Resources\V1\SalaryResourceDetail;
 
 class LogPayrollController extends Controller
 {
@@ -22,7 +23,7 @@ class LogPayrollController extends Controller
         $log = LogPayroll::with('employee')->get()->toArray();
         $registered_payrolls = RegisteredPayroll::get();
         $response = [
-            'salaries'=>$log, 
+            'data'=>$log, 
             'registered_payrolls'=>$registered_payrolls
         ];
 
@@ -34,9 +35,6 @@ class LogPayrollController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $request = json_decode($request->input('salaries'));
-
         $log_payroll = new LogPayroll();
 
         //foreach($request as $sueldo){
@@ -63,9 +61,14 @@ class LogPayrollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LogPayroll $log_payroll)
+    public function show(int $id_salary)
     {
-        return new LogPayrollResource($log_payroll);
+        $Salary = Salary::Find($id_salary);
+        if($Salary == null){
+            return null;
+        }else{
+            return new SalaryResourceDetail($Salary);
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\SalaryResource;
+use App\Http\Resources\V1\SalaryResourceDetail;
 use App\Models\Accrued;
 use App\Models\Discount;
 use App\Models\Employee;
@@ -19,7 +20,7 @@ class SalaryController extends Controller
     public function index()
     {
         $salary = Salary::with('employee')->get();//->toArray();
-        return SalaryResource::collection($salary);
+        return SalaryResourceDetail::collection($salary);
         //return $salary;
     }
 
@@ -85,20 +86,19 @@ class SalaryController extends Controller
         if($Salary == null){
             return null;
         }else{
-            return new SalaryResource($Salary);
+            return new SalaryResourceDetail($Salary);
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Salary $salary)
+    public function update(Request $request)
     {
         $salary = Salary::find($request->id);
         $discount = Discount::find($request->discount_id);
-        $accrued = Accrued::find($request->Accrued_id);
-        $employee = Employee::find($salary->employee_id);
-        //dd($salary, $request, $employee);
+        $accrued = Accrued::find($request->accrued_id);
+        $employee = Employee::find($request->employee_id)->first();
 
         $transportation_assistance=0;
         if($request->salary <= 1160000){

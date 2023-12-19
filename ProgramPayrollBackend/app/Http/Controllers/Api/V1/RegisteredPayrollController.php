@@ -6,6 +6,8 @@ use App\Models\LogPayroll;
 use Illuminate\Http\Request;
 use App\Models\RegisteredPayroll;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\RegisteredPayrollResource;
+use Illuminate\Http\Response;
 
 class RegisteredPayrollController extends Controller
 {
@@ -14,7 +16,9 @@ class RegisteredPayrollController extends Controller
      */
     public function index()
     {
-        //
+        
+        $registered_payrolls = RegisteredPayroll::get();
+        return RegisteredPayrollResource::collection($registered_payrolls);
     }
 
     /**
@@ -22,13 +26,21 @@ class RegisteredPayrollController extends Controller
      */
     public function store(Request $request)
     {
-        $log = LogPayroll::with('employee')->where('registered_payroll_id',$request->registered_payroll_id)->get()->toArray();
+        $registeredPayroll = new RegisteredPayroll();
+
+        $registeredPayroll->registration_date = $request->input('registration_date');
+        $registeredPayroll->save();
+        /*$log = LogPayroll::with('employee')->where('registered_payroll_id',$request->registered_payroll_id)->get()->toArray();
         
         $registered_payrolls = RegisteredPayroll::get();
 
         $response =  ['salaries'=>$log, 'registered_payrolls'=>$registered_payrolls];
+*/
+        return response()->json([
+            'message'=> 'Los datos del registro de nomina han sido Guardados',
+            'data'=> $registeredPayroll
+        ], Response::HTTP_ACCEPTED);
 
-        return $response;
     }
 
     /**

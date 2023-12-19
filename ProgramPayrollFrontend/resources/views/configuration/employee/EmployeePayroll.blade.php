@@ -58,7 +58,8 @@
                                                 <td style="text-align: center">{{ $employee['number_phone'] }}</td>
                                                 <td style="text-align: center">{{ number_format($salary['net_income']) }}</td>
                                                 <td style="text-align: center">
-                                                    <a class='text-success' href="{{ route('payroll.edit', $salary['id']) }}">
+                                                    <a class='text-success'
+                                                        href="{{ route('logPayroll.edit', $salary['id']) }}">
                                                         <i class='bi bi-pencil-square'></i>
                                                     </a>
                                                 </td>
