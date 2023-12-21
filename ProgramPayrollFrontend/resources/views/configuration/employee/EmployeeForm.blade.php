@@ -2,47 +2,58 @@
 <table class="tdEmpleado">
     <tr>
         <td><input type="text" placeholder="Cedula" class="form-control" id="cedula" name="identification_card"
-                value="{{ old('identification_card', $employee['identification_card']) }}" aria-describedby="emailHelp"
-                required>
+            @isset($accrued)
+                value="{{ old('identification_card', $employee['identification_card']) }}" aria-describedby="emailHelp" required>
+            @endisset
             @error('identification_card')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
         </td>
-        <td><input placeholder="Nombres" value="{{ old('names', $employee['names']) }}" type="text" id="names"
-                name="names" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+        <td><input placeholder="Nombres"  type="text" id="names" name="names" class="form-control" aria-label="Sizing example input"
+            @isset($accrued)
+                value="{{ old('names', $employee['names']) }}"
+            @endisset
+            aria-describedby="inputGroup-sizing-default">
             @error('names')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
         </td>
-        <td><input placeholder="Apellidos" value="{{ old('last_names', $employee['last_names']) }}" type="text"
-                id="last_names" name="last_names" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+        <td><input placeholder="Apellidos" type="text" id="last_names" name="last_names" class="form-control" aria-label="Sizing example input"
+            @isset($accrued)
+                value="{{ old('last_names', $employee['last_names']) }}"
+            @endisset
+            aria-describedby="inputGroup-sizing-default">
             @error('last_names')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
         </td>
     </tr>
     <tr>
-        <td><input placeholder="Telefono" value="{{ old('number_phone', $employee['number_phone']) }}" type="text"
-                id="number_phone" name="number_phone" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+        <td><input placeholder="Telefono" type="text" id="number_phone" name="number_phone" class="form-control" aria-label="Sizing example input"
+            @isset($accrued)
+                value="{{ old('number_phone', $employee['number_phone']) }}"
+            @endisset
+            aria-describedby="inputGroup-sizing-default">
             @error('number_phone')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
         </td>
-        <td colspan="2"><input placeholder="Direccion" value="{{ old('address', $employee['address']) }}"
-                type="text" id="address" name="address" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+        <td colspan="2"><input placeholder="Direccion" type="text" id="address" name="address" class="form-control" aria-label="Sizing example input"
+            @isset($accrued)
+                value="{{ old('address', $employee['address']) }}"
+            @endisset
+            aria-describedby="inputGroup-sizing-default">
             @error('address')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
         </td>
     </tr>
     <tr>
-        <td colspan="3"><input placeholder="Email" value="{{ old('email', $employee['email']) }}" type="text"
-                id="email" name="email" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+        <td colspan="3"><input placeholder="Email" type="text" id="email" name="email" class="form-control" aria-label="Sizing example input"
+            @isset($accrued)
+                value="{{ old('email', $employee['email']) }}"
+            @endisset
+            aria-describedby="inputGroup-sizing-default">
             @error('email')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror
@@ -51,8 +62,10 @@
     <tr>
         <td>
             <input placeholder="Salario" type="text" id="salario" name="salary" class="form-control"
-                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                value="{{ old('salary', $employee['salary']) }}">
+            @isset($accrued)
+                value="{{ old('salary', $employee['salary']) }}"
+            @endisset
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             @error('salary')
                 <div class="text-small text-danger">{{ $message }}</div>
             @enderror

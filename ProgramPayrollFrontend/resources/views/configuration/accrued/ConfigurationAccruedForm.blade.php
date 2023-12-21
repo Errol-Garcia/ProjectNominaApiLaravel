@@ -3,7 +3,7 @@
 <div class="container-sm 100% wide until small breakpoint">
     <label for="arl" class="form-label">Alimentacion: </label>
     <input type="number" step="0.01" class="form-control" id="feeding" name="feeding"
-        @isset($accrued != null)
+        @isset($accrued)
             value="{{ old('feeding', $accrued['feeding']) }}"
         @endisset
         aria-describedby="emailHelp" required>
@@ -44,7 +44,7 @@
     <label for="fec" class="form-label">Fecha: </label>
     <input type="date" class="form-control" id="fecha" name="registration_date" required placeholder="YYYY-MM-DD"
         @isset($accrued)
-            value="{{ old('registration_date', $accrued['registration_date']) }}" 
+            value="{{ old('registration_date', $accrued['registration_date']) }}"
         @endisset
         aria-describedby="emailHelp" require>
     @error('registration_date')
