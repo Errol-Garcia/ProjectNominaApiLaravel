@@ -10,7 +10,8 @@ class AccruedController extends Controller
 {
     public function index(){
         $url = env('URL_SERVER_API');
-        $response = Http::get('http://127.0.0.1:8020/api/v1/accrued');
+        
+        $response = Http::get($url.'/v1/accrued');
         $accrued = $response->json()["data"];
         return view('configuration.accrued.ConfigurationAccrued',
             ['accrued'=> $accrued]);
@@ -28,7 +29,7 @@ class AccruedController extends Controller
             'extra' => 'required|decimal:0,5',
             'registration_date' => 'required|date'
         ]);
-        $response = Http::post('http://127.0.0.1:8020/api/v1/accrued', [
+        $response = Http::post($url.'/v1/accrued', [
             'feeding'=> $request->feeding,
             'living_place'=> $request->living_place,
             'transport'=> $request->transport,
@@ -46,7 +47,7 @@ class AccruedController extends Controller
     public function edit(int $accrued){
 
         $url = env('URL_SERVER_API');
-        $response = Http::get('http://127.0.0.1:8020/api/v1/accrued/'.$accrued);
+        $response = Http::get($url.'/v1/accrued/'.$accrued);
         $accrued = $response->json()["data"];
 
         return view('configuration.accrued.ConfigurationAccruedUpdating',
@@ -63,7 +64,7 @@ class AccruedController extends Controller
             'registration_date' => 'required|date'
         ]);
 
-        $response = Http::put('http://127.0.0.1:8020/api/v1/accrued/'.$id, [
+        $response = Http::put($url.'/v1/accrued/'.$id, [
             'feeding'=> $request->feeding,
             'living_place'=> $request->living_place,
             'transport'=> $request->transport,
@@ -79,7 +80,7 @@ class AccruedController extends Controller
 
     public function destroy(int $accrued){
         $url = env('URL_SERVER_API');
-        $response = Http::delete('http://127.0.0.1:8020/api/v1/accrued/'.$accrued);
+        $response = Http::delete($url.'/v1/accrued/'.$accrued);
         
         if($response->successful()){
             return redirect()->route('accrued.index')->with(['message'=> 'Devengado actualizado correctamente']);
