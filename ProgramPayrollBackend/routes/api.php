@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\PostController;
+use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\SalaryController;
 use App\Http\Controllers\Api\V1\AccruedController;
@@ -37,6 +38,7 @@ Route::apiResource('v1/payroll',SalaryController::class);
 Route::apiResource('v1/log_payroll',LogPayrollController::class);
 Route::apiResource('v1/post',PostController::class);
 Route::apiResource('v1/user', UserController::class);
+Route::apiResource('v1/role', RoleController::class);
 
 route::post('login', [SessionController::class, 'login']);
 route::post('register', [SessionController::class, 'register']);

@@ -20,6 +20,7 @@
                                         @isset($registered_payrolls)
                                             @foreach ($registered_payrolls as $registered_payroll)
                                                 <option value="{{ $registered_payroll['id'] }}">
+                                                    Nomina #{{ $registered_payroll['id'] }} del
                                                     {{ $registered_payroll['registration_date'] }}
                                                 </option>
                                             @endforeach

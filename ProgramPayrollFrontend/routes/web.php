@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('WelcomeAdminView');
-}) -> name('home');
+// Route::get('/', function () {
+//     return view('auth.Login');
+// }) -> name('loginn');
 
-//Route::get('/', [IndexController::class, 'index'])->name('home');
+Route::get('/Inicio', [IndexController::class, 'index'])->name('home');
 //--------------------------------------
 //Route::get('', function () {
 
@@ -58,7 +58,7 @@ Route::get('/statistics', [Log_payrollController::class, 'estadistica']) -> name
 Route::post('/search', [RegisteredPayrollController::class, 'create'])-> name('search');
 
 
-Route::get('/login', [AuthenticationSessionController::class, 'create'])->name('login');
+Route::get('/', [AuthenticationSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticationSessionController::class, 'store'])->name('start');
 Route::post('/logout', [AuthenticationSessionController::class, 'destroy'])->name('logout');
 

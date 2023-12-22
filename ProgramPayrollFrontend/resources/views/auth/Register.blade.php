@@ -1,8 +1,8 @@
 @extends('auth.TemplateIndex')
 
 @section('content')
-<br>
-<div class="card mx-auto container-sm 100% wide until small breakpoint" style="background-color: #f0f0f0;">
+    <br>
+    <div class="card mx-auto container-sm 100% wide until small breakpoint" style="background-color: #f0f0f0;">
 
 
         <div class="row center py-2">
@@ -42,6 +42,18 @@
                                 <div class="text-small text-danger">{{ $message }}</div>
                             @enderror
                         </td>
+                        <td>
+                            <label for="rol_id" class="mx-auto py-2">Confirmar contraseña:</label>
+                            <div class="input-group mb-3">
+                                <input id="password_confirmation" name="password_confirmation" type="password"
+                                    class="form-control">
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                            @error('password_confirmation')
+                                <div class="text-small text-danger">{{ $message }}</div>
+                            @enderror
+                        </td>
                         <label for="cedula" class="mx-auto py-2">Cedula:</label>
                         <div class="input-group mb-3">
                             <input id="email" name="identification_card" type="text" class="form-control">
@@ -56,13 +68,13 @@
                                 <option value="" selected>Seleccionar</option>
                                 @isset($roles)
                                     @foreach ($roles as $rol)
-                                        <option value="{{ $rol->id }}">
+                                        <option value="{{ $rol['id'] }}">
                                             @isset($rol)
-                                                @selected(old('role_id', $rol) == $rol->id)
+                                                @selected(old('role_id', $rol) == $rol['id'])
                                             @else
-                                                @selected(old('role_id', $rol) == $rol->id)
+                                                @selected(old('role_id', $rol) == $rol['id'])
                                             @endisset
-                                            {{ $rol->name }}
+                                            {{ $rol['name'] }}
                                         </option>
                                     @endforeach
                                 @endisset

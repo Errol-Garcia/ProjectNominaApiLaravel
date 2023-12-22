@@ -37,13 +37,13 @@ class Log_payrollController extends Controller
         ]);
 
         $log = $response->json()["data"];
-        
+        //dd($request);
         if ($response->successful()){
             
 
             foreach($request as $sueldo){
                 
-                $response = Http::post($url. '/log_payroll', [
+                $response = Http::post($url. '/v1/log_payroll', [
                     'worked_days'=> $sueldo->worked_days,
                     'extra_hours'=>$sueldo->extra_hours,
                     'hour_value'=>$sueldo->hour_value,
@@ -89,8 +89,9 @@ class Log_payrollController extends Controller
     }
     public function destroy(int $id){
         $url = env('URL_SERVER_API');
-        $response = Http::delete('http://127.0.0.1:8020/api/v1/payroll/'.$id);
-        dd($response);
+        //dd($id);
+        $response = Http::delete($url.'/v1/payroll/'.$id);
+        //dd($response);
     }
     public function almacenar($salaries){
         dd($salaries);

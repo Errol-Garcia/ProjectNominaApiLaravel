@@ -44,14 +44,14 @@ public function store(Request $request){
 
         // dd($request->session());
 
-        return redirect()->route('home');
-        //return view('WelcomeAdminView');
+        //return redirect()->route('home');
+        return view('WelcomeAdminView');
     } else {
         // back()->withErrors([
         //     'message' => 'Credenciales invalidas'
         // ]);
-
-        return redirect()->route('home')->withErrors(['message' => 'Credenciales invalidas']);
+        return view("auth.Login");
+        //return redirect()->route('home')->withErrors(['message' => 'Credenciales invalidas']);
     }
     
     

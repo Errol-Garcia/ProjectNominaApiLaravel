@@ -11,6 +11,7 @@ use App\Models\Employee;
 use App\Models\Salary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class SalaryController extends Controller
 {
@@ -128,15 +129,7 @@ class SalaryController extends Controller
             'discount_id'=>$request->discount_id,
             'Accrued_id'=>$request->Accrued_id,
         ]);
-        /*$salary->worked_days = $request->input('worked_days');
-        $salary->extra_hours = $request->input('extra_hours');
-        $salary->hour_value = $request->input('hour_value');
-        $salary->bono = $request->input('bono');
-        $salary->accrued_value = $TotalesAccrueds;
-        $salary->discount_value = $TotalDiscounts;
-        $salary->net_income = $NetoPagar;
-        $salary->discount_id = $request->input('discount_id');
-        $salary->accrued_id = $request->input('accrued_id');*/
+
         return response()->json([
             'message'=> 'Los datos del salario  se han actualizado',
             'data'=> $salary
@@ -146,11 +139,15 @@ class SalaryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Salary $salary)
+    public function destroy(int $salary)
     {
-        $salary->delete();
+        $log = DB::select('
+        DELETE FROM public.salaries
+	        WHERE id=?', [$salary]);
+        
+        //$salary->delete();
         return response()->json([
-            'message'=> 'Los datos del salario han sido eliminados'
+            'message'=> 'Los datos del salarios han sido eliminados'
         ], Response::HTTP_ACCEPTED);
     }
 }
