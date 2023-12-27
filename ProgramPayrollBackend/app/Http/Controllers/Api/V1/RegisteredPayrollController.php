@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\V1\LogPayrollDetailsResource;
+use App\Http\Resources\V1\LogPayrollResource;
 use App\Models\LogPayroll;
 use Illuminate\Http\Request;
 use App\Models\RegisteredPayroll;
@@ -48,7 +50,13 @@ class RegisteredPayrollController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $log = LogPayroll::with('employee')->where('registered_payroll_id',$id)->get();//->toArray();
+        $response = [
+            'data'=>$log
+        ];
+        //return RegisteredPayrollResource::collection($log);
+        //return LogPayrollDetailsResource::collection($log);
+        return $response;
     }
 
     /**
