@@ -73,7 +73,8 @@
                                             <td style="text-align: center">{{ $emple['address'] }}</td>
                                             <td style="text-align: center">{{ $emple['email'] }}</td>
                                             <td style="text-align: center">
-                                                <a class='text-success' href="{{ route('employee.edit', $emple['id']) }}">
+                                                <a class='text-success'
+                                                    href="{{ route('employee.edit', $emple['identification_card']) }}">
                                                     <i class='bi bi-pencil-square'></i>
                                                 </a>
                                             </td>

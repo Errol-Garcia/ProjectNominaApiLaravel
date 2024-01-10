@@ -50,7 +50,7 @@ Route::resource('registeredPayroll', RegisteredPayrollController::class);
 
 
 Route::get('/PayrollPartial', function () {
-    return view('configuration.employee.EmployeePayrollPartial');
+    return view('configuration.employee.EmployeePayrollPartial',['msj'=>null]);
 }) -> name('PayrollPartial');
 
 Route::get('/log/{sueldos}', [Log_payrollController::class, 'almacenar']) -> name('log');

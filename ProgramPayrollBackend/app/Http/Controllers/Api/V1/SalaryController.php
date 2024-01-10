@@ -32,12 +32,13 @@ class SalaryController extends Controller
     {
         $discount = Discount::find($request->discount_id);
         $accrued = Accrued::find($request->accrued_id);
+        $employee = Employee::find($request->employee_id)->first();
 
         $transportation_assistance=0;
         if($request->salary <= 1160000){
             $transportation_assistance = $accrued->transporte;
         }
-        $TotalBasic = ($request->salary*$request->worked_days)/30;
+        $TotalBasic = ($employee->salary*$request->worked_days)/30;
 
         $extras = ($request->hour_value*$request->extra_hours) + $request->bono;
 

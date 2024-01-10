@@ -32,7 +32,6 @@
                     <div class="card-body ">
 
                         <form action="{{ route('employee.update', $employee['id']) }}" method="POST">
-
                             @method('PUT')
                             @include('configuration.employee.EmployeeForm')
                             <div class="d-flex justify-content-center">

@@ -8,12 +8,8 @@
                     @include('configuration.department.DepartmentForm')
                     <button type="submit" class="btn btn-primary">Actualizar</button>
                 </form>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error</strong> vuelve a intentarlo..
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
