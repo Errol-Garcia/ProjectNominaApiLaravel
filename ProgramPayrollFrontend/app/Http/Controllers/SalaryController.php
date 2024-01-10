@@ -32,7 +32,13 @@ class SalaryController extends Controller
         $salary = '';
 
         $response = Http::get($url. '/v1/employee/'.$request->identification_card);
-        $employee = $response->json()["data"];
+        //dd($response->json());
+        if($response->json() != null){
+            $employee = $response->json()["data"];
+        }else{
+            $employee = null;
+        }
+        
         if($employee != null){
             $response = Http::get($url. '/v1/payroll/'.$employee['id']);
             if ($response->json() == null){

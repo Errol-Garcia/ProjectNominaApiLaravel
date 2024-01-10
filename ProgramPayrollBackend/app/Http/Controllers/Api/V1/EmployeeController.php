@@ -53,7 +53,12 @@ class EmployeeController extends Controller
     {
         
         $employee = Employee::where('identification_card',$employee)->first();
-        return new EmployeeResource($employee);
+        if($employee != null){
+            return new EmployeeResource($employee);
+        }else{
+            return null;
+        }
+        
     }
 
     /**
