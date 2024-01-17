@@ -70,7 +70,7 @@
                                                         @method('DELETE')
                                                         <button type="submit" class="text-danger"
                                                             style="background-color: transparent; border: none; outline: none"
-                                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este departamento?')">
+                                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este devengado?')">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
